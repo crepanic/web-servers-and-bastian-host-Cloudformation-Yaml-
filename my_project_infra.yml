@@ -8,29 +8,36 @@ Parameters:
         Type: String
 
     VpcCIDR: 
-        Description: Please enter the IP range (CIDR notation) for this VPC
+        Description: the IP range (CIDR notation) for this VPC
         Type: String
-        Default: 15.0.0.0/16
 
     PublicSubnet1CIDR:
-        Description: Please enter the IP range (CIDR notation) for the public subnet in the first Availability Zone
+        Description: the IP range (CIDR notation) for the public subnet in the first Availability Zone
         Type: String
-        Default: 15.0.0.0/24
 
     PublicSubnet2CIDR:
-        Description: Please enter the IP range (CIDR notation) for the public subnet in the second Availability Zone
+        Description: the IP range (CIDR notation) for the public subnet in the second Availability Zone
         Type: String
-        Default: 15.0.1.0/24
 
     PrivateSubnet1CIDR:
-        Description: Please enter the IP range (CIDR notation) for the private subnet in the first Availability Zone
+        Description: the IP range (CIDR notation) for the private subnet in the first Availability Zone
         Type: String
-        Default: 15.0.2.0/24
 
     PrivateSubnet2CIDR:
-        Description: Please enter the IP range (CIDR notation) for the private subnet in the second Availability Zone
+        Description: the IP range (CIDR notation) for the private subnet in the second Availability Zone
         Type: String
-        Default: 15.0.3.0/24
+
+    DefaultEC2:
+        Description: Default EC2 Type
+        Type: String
+
+    DefalutAMI:
+        Description: Defalut AMI ID
+        Type: String
+
+    SSHKEY:
+        Description: Defalut AMI ID
+        Type: String
 
 
 Resources:

@@ -1,10 +1,44 @@
 Description: >
     Sunmi Reu / My own Project 2023.07
+
 Parameters:
 
     EnvironmentName:
         Description: An environment name that will be prefixed to resource names
         Type: String
+
+    VpcCIDR: 
+        Description: the IP range (CIDR notation) for this VPC
+        Type: String
+
+    PublicSubnet1CIDR:
+        Description: the IP range (CIDR notation) for the public subnet in the first Availability Zone
+        Type: String
+
+    PublicSubnet2CIDR:
+        Description: the IP range (CIDR notation) for the public subnet in the second Availability Zone
+        Type: String
+
+    PrivateSubnet1CIDR:
+        Description: the IP range (CIDR notation) for the private subnet in the first Availability Zone
+        Type: String
+
+    PrivateSubnet2CIDR:
+        Description: the IP range (CIDR notation) for the private subnet in the second Availability Zone
+        Type: String
+
+    DefaultEC2:
+        Description: Default EC2 Type
+        Type: String
+
+    DefalutAMI:
+        Description: Defalut AMI ID
+        Type: String
+
+    SSHKEY:
+        Description: Defalut AMI ID
+        Type: String
+
 
 Resources:
   LBSecGroup:
@@ -50,11 +84,11 @@ Resources:
           sudo apt-get update -y 
           sudo apt-get install apache2 -y
           sudo systemctl start apache2.service     
-      ImageId: ami-007855ac798b5175e
-      KeyName: udacity_0523
+      ImageId: !Ref DefalutAMI
+      KeyName: !Ref SSHKEY
       SecurityGroups:
       - Ref: WebServerSecGroup
-      InstanceType: t2.medium
+      InstanceType: !Ref DefaultEC2
       BlockDeviceMappings:
       - DeviceName: "/dev/sdk"
         Ebs:
@@ -137,9 +171,9 @@ Resources:
   BastionEC2Instance: 
     Type: AWS::EC2::Instance
     Properties:
-      ImageId: ami-007855ac798b5175e
-      KeyName: udacity_0523
-      InstanceType: t2.medium
+      ImageId: !Ref DefalutAMI
+      KeyName: !Ref SSHKEY
+      InstanceType: !Ref DefaultEC2
       Tags:
         - Key: Name
           Value: BastianHost
@@ -147,7 +181,7 @@ Resources:
         - AssociatePublicIpAddress: "true"
           DeviceIndex : '0'
           GroupSet:
-            - Ref: BastionServerSecGroup
+            - !Ref BastionServerSecGroup
           SubnetId: 
             Fn::ImportValue:
               !Sub "${EnvironmentName}-PUB1-SN"
@@ -155,8 +189,13 @@ Resources:
 Outputs: 
 
     WebAppLB: 
-        Description: Public URL of load blancer
+        Description: Loadbalancer ARN 
         Value: !Ref WebAppLB
         Export:
           Name: !Sub ${EnvironmentName}-WEBAPPLD
 
+    WebLBDNS: 
+        Description: Public URL of load blancer
+        Value: !GetAtt WebAppLB.DNSName
+        Export:
+          Name: !Sub ${EnvironmentName}-WebLBDNS
