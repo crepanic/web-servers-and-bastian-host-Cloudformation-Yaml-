@@ -35,11 +35,6 @@ Parameters:
         Description: Defalut AMI ID
         Type: String
 
-    SSHKEY:
-        Description: Defalut AMI ID
-        Type: String
-
-
 Resources:
     VPC: 
         Type: AWS::EC2::VPC
