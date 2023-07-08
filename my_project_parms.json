@@ -31,10 +31,5 @@
 	"ParameterKey": "PrivateSubnet2CIDR",
 	"ParameterValue": "15.0.3.0/24"
 
-},
-{
-	"ParameterKey": "SSHKEY",
-	"ParameterValue": "udacity_0523"
 }
-
 ]
