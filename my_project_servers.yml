@@ -35,11 +35,6 @@ Parameters:
         Description: Defalut AMI ID
         Type: String
 
-    SSHKEY:
-        Description: Defalut AMI ID
-        Type: String
-
-
 Resources:
   LBSecGroup:
     Type: AWS::EC2::SecurityGroup
@@ -85,7 +80,6 @@ Resources:
           sudo apt-get install apache2 -y
           sudo systemctl start apache2.service     
       ImageId: !Ref DefalutAMI
-      KeyName: !Ref SSHKEY
       SecurityGroups:
       - Ref: WebServerSecGroup
       InstanceType: !Ref DefaultEC2
@@ -172,7 +166,6 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       ImageId: !Ref DefalutAMI
-      KeyName: !Ref SSHKEY
       InstanceType: !Ref DefaultEC2
       Tags:
         - Key: Name
